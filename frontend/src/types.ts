@@ -1,0 +1,14 @@
+export type Role = 'student' | 'driver' | 'admin';
+export type User = { id: string; name: string; email: string; role: Role; phone?: string };
+export type Stop = { id: string; name: string; time: string; sequence: number };
+export type Bus = { id: string; name: string; plate: string; capacity: number; available: number; accessible: boolean; status: 'Available' | 'Assigned' | 'Maintenance'; routeId?: string };
+export type Driver = { id: string; name: string; phone: string; busId: string; routeId: string; status: 'Available' | 'On duty' | 'Off duty' };
+export type Schedule = { departure: string; arrival: string; days: string[] };
+export type CampusRoute = { id: string; name: string; origin: string; destination: string; duration: number; busId: string; accessible: boolean; status: 'Active' | 'Inactive'; stops: Stop[]; schedule: Schedule };
+export type Booking = { id: string; reference: string; userId: string; routeId: string; busId: string; date: string; status: 'Upcoming' | 'Completed' | 'Cancelled'; createdAt: string };
+export type Journey = { id: string; routeId: string; busId: string; status: 'Scheduled' | 'Boarding' | 'In Transit' | 'Delayed' | 'Completed'; date: string; completedStops: number };
+export type RescueRequest = { id: string; userId: string; routeId: string; bookingId?: string; category: string; description: string; status: 'Submitted' | 'Under Review' | 'Replacement Requested' | 'Replacement Assigned' | 'Resolved' | 'Closed'; replacementBusId?: string; createdAt: string; notes: string[]; source: 'Student' | 'Driver' };
+export type Incident = { id: string; driverId: string; routeId: string; busId: string; rescueId: string; category: string; description: string; status: string; createdAt: string };
+export type NotificationItem = { id: string; userId: string; title: string; message: string; createdAt: string; read: boolean };
+export type AccessibilityPreference = { wheelchair: boolean; lowStep: boolean; quietRide: boolean };
+export type AppData = { buses: Bus[]; drivers: Driver[]; routes: CampusRoute[]; bookings: Booking[]; journeys: Journey[]; rescues: RescueRequest[]; incidents: Incident[]; notifications: NotificationItem[]; preferences: Record<string, AccessibilityPreference> };
